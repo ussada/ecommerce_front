@@ -3,8 +3,8 @@ node {
         git credentialsId: 'ussada.a', url: 'https://github.com/ussada/e-commercefront.git'
     }
 
-    stage('Load test environment') {
-        withCredentials([file(credentialsId: 'front_env_file', variable: 'FRONT_ENV')]) {
+    stage('Load deploy environment') {
+        withCredentials([file(credentialsId: 'front_deploy_env', variable: 'FRONT_ENV')]) {
            sh "cp \$FRONT_ENV .env"
         }
     }
