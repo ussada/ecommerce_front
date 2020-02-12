@@ -9,9 +9,8 @@ import {
     Checkbox,
     FormHelperText
 } from '@material-ui/core';
-import getIcon from '../../icon';
-import {connect} from 'react-redux';
-import {getData} from '../../actions/base';
+// import {connect} from 'react-redux';
+// import {getData} from '../../actions/base';
 
 // const useStyles = makeStyles(theme => ({
 const styles = theme => ({
@@ -118,7 +117,7 @@ class SelectField extends React.Component {
                                     return ( 
                                         <MenuItem value={itemValue}>
                                             {multiple ? <Checkbox checked={values.includes(itemValue)}/> : undefined}
-                                            {<img src={getIcon(item.icon)} widht="16" height="16" style={{'margin-right': '5px'}} />} {itemLabel}
+                                            {itemLabel}
                                         </MenuItem>
                                     )
                                 })
