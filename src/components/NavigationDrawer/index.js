@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import clsx from 'clsx';
 import {withStyles} from '@material-ui/core/styles';
 import {
@@ -158,6 +159,15 @@ class NavigationDrawer extends React.Component {
         </div>
         );
     }
+}
+
+NavigationDrawer.propTypes = {
+  classes: propTypes.any,
+  drawerTitle: propTypes.string,
+  toolbarTitle: propTypes.string,
+  items: propTypes.any,
+  accountMenu: propTypes.any,
+  children: propTypes.any
 }
 
 export default withStyles(styles)(NavigationDrawer);

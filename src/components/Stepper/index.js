@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Stepper,
@@ -40,6 +41,13 @@ const SimpleStepper = ({schema}) => {
             <Typography className={classes.instructions}>{stepList[activeStep]}</Typography>
         </div>
     );
+}
+
+SimpleStepper.propTypes = {
+  schema: propTypes.shape({
+    stepList: propTypes.string,
+    activeStep: propTypes.number
+  })
 }
 
 export default SimpleStepper;

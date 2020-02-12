@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import {Link, Route} from 'react-router-dom';
 import {Icon, ListItem, ListItemText, ListItemIcon, Tooltip, Collapse, List} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
@@ -52,7 +52,7 @@ const Items = ({to, exact, sub, parents, pathname, level, ...otherProps}) => {
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                             {
-                                sub.map(data => {
+                                sub.map((data, idx) => {
                                     let schema = {
                                         ...data,
                                         pathname,
@@ -61,7 +61,7 @@ const Items = ({to, exact, sub, parents, pathname, level, ...otherProps}) => {
                                         level: level + 1
                                     }
                                     
-                                    return <Items {...schema} />
+                                    return <Items key={idx} {...schema} />
                                 })
                             }
                         </List>
@@ -97,17 +97,30 @@ class NavItem extends React.Component {
 }
 
 NavItem.propTypes = {
-    key: PropTypes.string,
-    module: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    to: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.bool
+    key: propTypes.string,
+    module: propTypes.string,
+    label: propTypes.string.isRequired,
+    to: propTypes.oneOfType([
+        propTypes.string,
+        propTypes.bool
     ]).isRequired,
-    exact: PropTypes.bool,
-    icon: PropTypes.string,
-    sub: PropTypes.array
+    exact: propTypes.bool,
+    icon: propTypes.string,
+    sub: propTypes.array
 };
+
+setItem.propTypes = {
+    to: propTypes.oneOfType([
+        propTypes.string,
+        propTypes.bool
+    ]).isRequired,
+    label: propTypes.string.isRequired,
+    icon: propTypes.string,
+    rightIcon: propTypes.string,
+    prefix: propTypes.string,
+    pathname: propTypes.string,
+
+}
 
 // const mapStateToProps = state => ({
 //     menuExpand: state.config.menuExpand

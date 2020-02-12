@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import {
     FormControl,
@@ -115,7 +116,7 @@ class SelectField extends React.Component {
                                     }
 
                                     return ( 
-                                        <MenuItem value={itemValue}>
+                                        <MenuItem key={itemValue} value={itemValue}>
                                             {multiple ? <Checkbox checked={values.includes(itemValue)}/> : undefined}
                                             {itemLabel}
                                         </MenuItem>
@@ -133,6 +134,41 @@ class SelectField extends React.Component {
             </div>
         )
     }
+}
+
+SelectField.propTypes = {
+    schema: propTypes.shape({
+        id: propTypes.string,
+        name: propTypes.string,
+        label: propTypes.string,
+        required: propTypes.bool,
+        selectedRows: propTypes.array,
+        className: propTypes.string,
+        multiple: propTypes.bool,
+        value: propTypes.oneOfType([
+            propTypes.string,
+            propTypes.number,
+            propTypes.array
+        ]),
+        error: propTypes.bool,
+        helperText: propTypes.string,
+        items: propTypes.arrayOf(
+            propTypes.shape({
+                id: propTypes.oneOfType([
+                    propTypes.string,
+                    propTypes.number
+                ]),
+                name: propTypes.string
+            })
+        ),
+        refModule: propTypes.shape({
+            moduleName: propTypes.string,
+            valueField: propTypes.string,
+            labelField: propTypes.string,
+        }),
+    }),
+    moduleItems: propTypes.arrayOf(propTypes.object),
+    classes: propTypes.any,
 }
 
 const mapStateToProps = (state, props) => {

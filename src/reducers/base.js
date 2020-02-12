@@ -1,6 +1,3 @@
-import guid from 'uuid/v1';
-import {getList} from '../mockup';
-
 var initialState = {
   items: [],
   selectedItems: [],
@@ -19,20 +16,7 @@ const createReducer = (reducerName = '') => {
   let idx = 0;
   let obj = {};
 
-  let initial = {};
-
-  // Mock-up
-  let initialData = ['user', 'menu', 'role', 'role_permission'];
-
-  if (initialData.includes(reducerName))
-    initial = {
-      ...initialState,
-      items: getList(reducerName)
-    }
-  else
-    initial = {...initialState}
-  
-  return (state = initial, action) => { 
+  return (state = initialState, action) => { 
     switch (action.type) {
       case `FETCH_BEGIN_${reducerName}`:
         return {

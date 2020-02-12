@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import deburr from 'lodash/deburr';
 import Autosuggest from 'react-autosuggest';
 import TextField from '@material-ui/core/TextField';
@@ -98,7 +99,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function IntegrationAutosuggest({suggestionList, className, value, popper, onSelected, valueField, setChangeFields, freeSolo = false, ...props}) {
+const IntegrationAutosuggest = ({suggestionList, className, value, onSelected, valueField, setChangeFields, freeSolo = false, ...props}) => {
     
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -140,10 +141,8 @@ export default function IntegrationAutosuggest({suggestionList, className, value
       }
       
       let selectedItem = suggestionList.find(item => item.name == value);
-      if(!selectedItem /*&& props.isWarningEmptyValue*/){
-        if (props.isWarningEmptyValue)
-          alert(props.isWarningEmptyValue);
-        
+      
+      if(!selectedItem){
         if (!freeSolo)
           handleSetChangeFields('', '')
       }
@@ -185,3 +184,39 @@ export default function IntegrationAutosuggest({suggestionList, className, value
         </div>
     );
 }
+
+IntegrationAutosuggest.propTypes = {
+  suggestionList: propTypes.arrayOf(
+    propTypes.oneOf([
+      propTypes.shape({
+        id: propTypes.oneOfType([
+          propTypes.string,
+          propTypes.number
+        ])
+      }),
+      propTypes.shape({
+        title: propTypes.string,
+        pin: propTypes.bool,
+        items: propTypes.shape({
+          id: propTypes.oneOfType([
+            propTypes.string,
+            propTypes.number
+          ])
+        })
+      })
+    ])
+  ),
+  className: propTypes.string,
+  value: propTypes.oneOfType([
+    propTypes.string,
+    propTypes.number
+  ]),
+  onSelected: propTypes.func,
+  valueField: propTypes.string,
+  setChangeFields: propTypes.func,
+  freeSolo: propTypes.bool,
+  id: propTypes.string.isRequired,
+
+}
+
+export default IntegrationAutosuggest;

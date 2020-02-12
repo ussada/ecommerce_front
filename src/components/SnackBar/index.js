@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import clsx from 'clsx';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
@@ -75,10 +75,10 @@ function MySnackbarContentWrapper(props) {
 }
 
 MySnackbarContentWrapper.propTypes = {
-  className: PropTypes.string,
-  message: PropTypes.string,
-  onClose: PropTypes.func,
-  variant: PropTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
+  className: propTypes.string,
+  message: propTypes.string,
+  onClose: propTypes.func,
+  variant: propTypes.oneOf(['error', 'info', 'success', 'warning']).isRequired,
 };
 
 const useStyles2 = makeStyles(theme => ({
@@ -110,6 +110,12 @@ const CustomizedSnackbars = ({content, open, handleClose}) => {
         </Snackbar>
     </div>
   );
+}
+
+CustomizedSnackbars.propTypes = {
+  content: propTypes.string,
+  open: propTypes.bool,
+  handleClose: propTypes.func
 }
 
 export default CustomizedSnackbars;

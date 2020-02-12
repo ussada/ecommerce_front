@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {
     ExpansionPanel,
@@ -337,6 +338,22 @@ class Detail extends React.Component {
             </div>
         );
     }
+}
+
+Detail.propTypes = {
+    schema: propTypes.shape({
+        title: propTypes.string,
+        type: propTypes.string,
+        fk: propTypes.string,
+        initialActions: propTypes.arrayOf(propTypes.func),
+        data: propTypes.objectOf(propTypes.any),
+    }),
+    dispatch: propTypes.any,
+    initialItems: propTypes.arrayOf(propTypes.object),
+    batchItems: propTypes.arrayOf(propTypes.object),
+    moduleName: propTypes.string.isRequired,
+    classes: propTypes.any,
+    lang: propTypes.object,
 }
 
 const mapStateToProps = (state, props) => ({

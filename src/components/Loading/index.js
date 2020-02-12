@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import styled from 'styled-components';
 import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
@@ -16,6 +17,11 @@ const Loading = ({isLoading, loadingMsg, ...props}) => {
     };
     
     return <StyledBlockUi {...renderProps} {...props} />
+}
+
+Loading.propTypes = {
+    isLoading: propTypes.bool,
+    loadingMsg: propTypes.string,
 }
 
 export default Loading;

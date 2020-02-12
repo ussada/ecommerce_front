@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {
     Table,
@@ -343,37 +343,51 @@ class DataTable extends Component {
 }
 
 Table.propTypes = {
-    title: PropTypes.string,
-    headers: PropTypes.objectOf(
-        PropTypes.oneOfType(
+    title: propTypes.string,
+    headers: propTypes.objectOf(
+        propTypes.oneOfType(
             [
-                PropTypes.node,
-                PropTypes.element,
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.symbol,
-                PropTypes.shape({
-                    value: PropTypes.any.isRequired
+                propTypes.node,
+                propTypes.element,
+                propTypes.string,
+                propTypes.number,
+                propTypes.symbol,
+                propTypes.shape({
+                    value: propTypes.any.isRequired
                 })
             ]
         )
     ),
-    rows: PropTypes.arrayOf(
-        PropTypes.objectOf(
-            PropTypes.oneOfType(
+    rows: propTypes.arrayOf(
+        propTypes.objectOf(
+            propTypes.oneOfType(
                 [
-                    PropTypes.node,
-                    PropTypes.element,
-                    PropTypes.string,
-                    PropTypes.number,
-                    PropTypes.symbol,
-                    PropTypes.shape({
-                        value: PropTypes.any.isRequired
+                    propTypes.node,
+                    propTypes.element,
+                    propTypes.string,
+                    propTypes.number,
+                    propTypes.symbol,
+                    propTypes.shape({
+                        value: propTypes.any.isRequired
                     })
                 ]
             )
         )
-    )
+    ),
+    store: propTypes.object,
+    data: propTypes.shape({
+        title: propTypes.string,
+        headers: propTypes.objectOf(
+            propTypes.oneOfType([
+                propTypes.string,
+                propTypes.object
+            ])
+        ),
+        rows: propTypes.arrayOf(propTypes.object),
+        options: propTypes.object,
+        lang: propTypes.object,
+        classes: propTypes.any
+    })
 };
 
 const mapStateToProps = state => ({

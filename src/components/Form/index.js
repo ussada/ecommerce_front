@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {
     TextField,
     Button,
@@ -209,6 +210,41 @@ const Form = ({lang, schema, formData, changeFields, errors = {}, defaultProps =
         </div>
     );
 }
+
+Form.propTypes = {
+    lang: propTypes.shape({
+        data: propTypes.object
+    }),
+    schema: propTypes.shape({
+        page: propTypes.string,
+        initialState: propTypes.object,
+        data: propTypes.objectOf(
+            propTypes.shape({
+                component: propTypes.string.isRequired,
+                title: propTypes.string,
+                required: propTypes.bool,
+                onChange: propTypes.func,
+                autoFocus: propTypes.bool,
+                items: propTypes.array
+            })
+        )
+    }),
+    formData: propTypes.object,
+    changeFields: propTypes.object,
+    errors: propTypes.object,
+    defaultProps: propTypes.object,
+}
+
+getComponent.propTypes = {
+    id: propTypes.string,
+    opts: propTypes.object,
+    defaultProps: propTypes.object,
+    initialValue: propTypes.object,
+    changeValue: propTypes.object,
+    title: propTypes.string,
+    errorText: propTypes.string
+}
+
 const mapStateToProps = state => ({
     lang: state.config.lang
 })

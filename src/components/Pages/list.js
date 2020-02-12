@@ -1,4 +1,5 @@
 import React from "react";
+import propTypes from 'prop-types';
 import {connect} from "react-redux";
 import {getData, deleteData, setSelectedItems} from "../../actions/base";
 import Table from '../Table';
@@ -298,6 +299,36 @@ class PageList extends React.Component {
       </div>
     );
   }
+}
+
+PageList.propTypes = {
+  schema: propTypes.shape({
+    page: propTypes.string,
+    initialState: propTypes.object,
+    initialActions: propTypes.arrayOf(propTypes.func),
+    condition: propTypes.objectOf(propTypes.object),
+    conditionButton: propTypes.objectOf(propTypes.object),
+    button: propTypes.objectOf(propTypes.object),
+    table: propTypes.shape({
+      headers: propTypes.objectOf(
+        propTypes.oneOfType([
+          propTypes.string,
+          propTypes.object
+        ])
+      ),
+      options: propTypes.object
+    })
+  }),
+  dispatch: propTypes.any,
+  moduleName: propTypes.string.isRequired,
+  history: propTypes.any,
+  rows: propTypes.arrayOf(propTypes.object),
+  location: propTypes.any,
+  initialCondition: propTypes.object,
+  error: propTypes.string,
+  loading: propTypes.bool,
+  page: propTypes.string,
+  lang: propTypes.object,
 }
 
 const mapStateToProps = (state, props) => ({

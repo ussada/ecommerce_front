@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {
     Button,
@@ -34,7 +35,7 @@ class FileInput extends React.Component {
     
     render() {
         const {lang, classes, id, name, value, className, onChange, fileExtensions} = this.props;
-        let buttonLabel = lang.data.choose_file || 'Choose File';
+        let buttonLabel = lang.data && lang.data.choose_file ? lang.data.choose_file : 'Choose File';
 
         return (
             <div className={className}>
@@ -49,6 +50,19 @@ class FileInput extends React.Component {
             </div>
         )
     }
+}
+
+FileInput.propTypes = {
+    lang: propTypes.shape({
+        data: propTypes.object
+    }),
+    classes: propTypes.any,
+    id: propTypes.string,
+    name: propTypes.string,
+    value: propTypes.string,
+    className: propTypes.string,
+    onChange: propTypes.func,
+    fileExtensions: propTypes.string,
 }
 
 const mapStateToProps = state => ({

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import propTypes from 'prop-types';
 import {withRouter, Redirect} from 'react-router-dom';
 import Form from '../../components/Form';
 import {connect} from "react-redux";
@@ -299,7 +300,7 @@ class PageData extends Component {
                                 typeof detail !== 'undefined' 
                                     ? Object.keys(detail).map(name => {
                                         // const initialItems = initialFields && initialFields.hasOwnProperty(name) ? initialFields[name].slice() : [];
-                                        return <Detail moduleName={name} schema={detail[name]} masterId={this.state.id} /*initialItems={initialItems}*/ />
+                                        return <Detail key={name} moduleName={name} schema={detail[name]} masterId={this.state.id} /*initialItems={initialItems}*/ />
                                     })
                                     : ''
                             }
@@ -324,6 +325,24 @@ class PageData extends Component {
             </div>
         );
     }
+}
+
+PageData.propTypes = {
+    schema: propTypes.shape({
+        page: propTypes.string,
+        initialState: propTypes.object,
+        initialActions: propTypes.arrayOf(propTypes.func),
+    }),
+    moduleName: propTypes.string.isRequired,
+    selectedItems: propTypes.arrayOf(propTypes.object),
+    detailStore: propTypes.objectOf(propTypes.any),
+    dispatch: propTypes.any,
+    history: propTypes.any,
+    location: propTypes.any,
+    loading: propTypes.bool,
+    error: propTypes.string,
+    page: propTypes.string,
+    lang: propTypes.object,
 }
 
 const mapStateToProps = (state, props) => {

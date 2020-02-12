@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {
     Button,
     Dialog,
@@ -27,10 +28,10 @@ const AlertDialog = ({title, description, open, actions}) => {
         </DialogContent>
         <DialogActions>
             {
-                actions.map(item => {
+                actions.map((item, idx) => {
                     const {label, icon, ...otherProps} = item;
                     return (
-                        <Button {...otherProps}>
+                        <Button key={idx} {...otherProps}>
                             {icon ? <Icon>{icon}</Icon> : undefined}
                             {item.label}
                         </Button>
@@ -41,6 +42,17 @@ const AlertDialog = ({title, description, open, actions}) => {
       </Dialog>
     </div>
   );
+}
+
+AlertDialog.propTypes = {
+  title: propTypes.string,
+  description: propTypes.oneOf([
+    propTypes.arrayOf(propTypes.element),
+    propTypes.element,
+    propTypes.string
+  ]),
+  open: propTypes.bool.isRequired,
+  actions: propTypes.arrayOf(propTypes.object)
 }
 
 export default AlertDialog;

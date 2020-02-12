@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Checkbox,
@@ -41,6 +42,7 @@ const CheckboxGroup = ({schema}) => {
               
               return (
                 <FormControlLabel
+                  key={item.id}
                   value={item.id}
                   control={
                     <>
@@ -57,6 +59,36 @@ const CheckboxGroup = ({schema}) => {
       </FormControl>
     </div>
   );
+}
+
+CheckboxGroup.propTypes = {
+  schema: propTypes.shape({
+    id: propTypes.string,
+    key: propTypes.string,
+    name: propTypes.string,
+    className: propTypes.string,
+    label: propTypes.string,
+    items: propTypes.arrayOf(
+      propTypes.shape({
+        id: propTypes.oneOfType(
+          propTypes.string,
+          propTypes.number
+        ).isRequired,
+        name: propTypes.string,
+        icon: propTypes.string,
+        order: propTypes.number,
+        onChange: propTypes.func
+      })
+    ),
+    required: propTypes.bool,
+    disabled: propTypes.bool,
+    initialValue: propTypes.oneOf(
+      propTypes.arrayOf(propTypes.object),
+      propTypes.object
+    ),
+    field: propTypes.string,
+    itemAsRow: propTypes.bool
+  })
 }
 
 export default CheckboxGroup;

@@ -9,8 +9,6 @@ import {connect} from 'react-redux';
 import {getLang, getLangList} from '../../assets/lang';
 import {setLang, setValue} from '../../actions/config';
 
-// import MenuList from './Menu.js';
-
 import dashboard from '../Dashboard';
 import user from '../User';
 import role from '../Role';

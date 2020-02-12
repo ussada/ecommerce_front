@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import palette from '../../theme/palette';
 import { Bar } from 'react-chartjs-2';
 import {withStyles} from '@material-ui/core/styles';
@@ -291,6 +292,17 @@ class BarChart extends Component {
       </div>
     );
   }
+}
+
+BarChart.propTypes = {
+  customToolTip: propTypes.any,
+  history_url: propTypes.string,
+  classes: propTypes.any,
+  title: propTypes.string,
+  subheader: propTypes.string,
+  graphdetail: propTypes.string,
+  title_action: propTypes.string,
+  action: propTypes.any,
 }
 
 export default withStyles(styles)(BarChart);

@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Radio,
@@ -32,6 +33,7 @@ const RadioButtonGroup = ({schema}) => {
           {
             items.map(item => (
               <FormControlLabel
+                key={item.id}
                 value={item.id}
                 control={<Radio color="primary" />}
                 label={item.name}
@@ -43,6 +45,24 @@ const RadioButtonGroup = ({schema}) => {
       </FormControl>
     </div>
   );
+}
+
+RadioButtonGroup.propTypes = {
+  schema: propTypes.shape({
+    className: propTypes.string,
+    style: propTypes.any,
+    label: propTypes.string,
+    items: propTypes.arrayOf(
+      propTypes.shape({
+        id: propTypes.oneOfType([
+          propTypes.string,
+          propTypes.number
+        ]),
+        name: propTypes.string
+      })
+    ),
+    required: propTypes.bool
+  })
 }
 
 export default RadioButtonGroup;

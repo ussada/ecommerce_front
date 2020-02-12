@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {
     IconButton,
     Icon,
@@ -48,9 +49,9 @@ const AccountMenu = ({lang, account}) => {
             onClick: handleMenuClose,
         },
         items: [
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>,
-            <Divider/>,
-            <MenuItem onClick={account.logout}>Logout</MenuItem>
+            <MenuItem key="profile" onClick={handleMenuClose}>Profile</MenuItem>,
+            <Divider key="div" />,
+            <MenuItem key="logout" onClick={account.logout}>Logout</MenuItem>
         ]
     };
 
@@ -114,6 +115,24 @@ const AccountMenu = ({lang, account}) => {
             {menu(langMenu)}
         </div>
     )
+}
+
+AccountMenu.propTypes = {
+    lang: propTypes.object,
+    account: propTypes.shape({
+        user: propTypes.object,
+        logout: propTypes.func
+    })
+}
+
+menu.propTypes = {
+    menu: propTypes.shape({
+        id: propTypes.string,
+        anchorEl: propTypes.bool,
+        open: propTypes.bool,
+        onClick: propTypes.func
+    }),
+    items: propTypes.arrayOf(propTypes.element)
 }
 
 export default AccountMenu;

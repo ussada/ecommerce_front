@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -61,7 +62,7 @@ const Expansion = ({schema, handleChange}) => {
     return (
         <div>
         {
-            items.map(item => {
+            items.map((item, idx) => {
               let iconList = []
 
               if (item.icon) {
@@ -72,7 +73,7 @@ const Expansion = ({schema, handleChange}) => {
               }
 
               return (
-                <ExpansionPanel square className="expansion" 
+                <ExpansionPanel key={idx} square className="expansion" 
                     expanded={value === item.value} onChange={(e) => handleChange('payment_method', item.value)} 
                 >
                     <ExpansionPanelSummary aria-controls={item.value} id={item.value}>
@@ -88,7 +89,7 @@ const Expansion = ({schema, handleChange}) => {
                           iconList.length > 0
                             ? <>
                                 {
-                                  iconList.map(iconName => <img src={getIcon(iconName)} width="48" height="48" />)
+                                  iconList.map(iconName => <img key={iconName} src={getIcon(iconName)} width="48" height="48" />)
                                 }
                               </>
                             : undefined
@@ -111,6 +112,18 @@ const Expansion = ({schema, handleChange}) => {
         }
         </div>
     );
+}
+
+Expansion.propTypes = {
+  schema: propTypes.objectOf([
+    propTypes.shape({
+      title: propTypes.string,
+      value: propTypes.string.isRequired,
+      icon: propTypes.string,
+      data: propTypes.objectOf(propTypes.any)
+    })
+  ]),
+  handleChange: propTypes.func
 }
 
 export default Expansion;
