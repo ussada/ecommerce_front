@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 
-RUN npm install --ignore-platform
+RUN npm install
 
 COPY . .
 
