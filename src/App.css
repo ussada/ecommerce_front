@@ -1,0 +1,89 @@
+.App {
+  /* text-align: center; */
+  padding-bottom: 50px;
+}
+
+.App-logo {
+  /* height: 10px; */
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.header {
+  display: flex;
+  height: 10px;
+  flex-direction: 'row';
+  align-items: 'center';
+}
+
+.input-field {
+  width: 100%;
+}
+
+.expansion {
+  width: 90%;
+  text-align: start;
+}
+
+.button {
+  width: 100px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(max-content , 1fr));
+  grid-gap: 1rem;
+}
+
+.grid-cell--1 {
+  grid-column-end: span 1;
+}
+.grid-cell--2 {
+  grid-column-end: span 2;
+}
+.grid-cell--6 {
+  grid-column-end: span 6;
+}
+.grid-cell--6-2 {
+  grid-column-end: span 6;
+}
+.grid-cell--6-3 {
+  grid-column-end: span 6;
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .grid-cell--6 {
+    grid-column-end: span 6;
+    width: 49%;
+    display: inline-block;
+  }
+  .grid-cell--6-2 {
+    grid-column-end: span 6;
+    width: 49%;
+    display: inline-block;
+    margin-left: 15px
+  }
+  .grid-cell--6-3 {
+    grid-column-end: span 6;
+    width: 49%;
+    display: inline-block;
+    margin-left: 15px;
+    vertical-align: middle;
+  }
+}
+.grid-cell--12 {
+  grid-column-end: span 12;
+}

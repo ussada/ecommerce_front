@@ -1,0 +1,25 @@
+node {
+    stage('Source checkout') {
+        git credentialsId: 'ussada.a', url: 'https://github.com/ussada/e-commercefront.git'
+    }
+
+    stage('Load test environment') {
+        withCredentials([file(credentialsId: 'front_env_file', variable: 'FRONT_ENV')]) {
+           sh "cp \$FRONT_ENV .env"
+        }
+    }
+
+    stage('Build image') {
+        sh 'docker build -t ecommerce_front --rm .'
+    }
+    
+    stage('Create container') {
+        sh 'docker stop ecommerce_front || true'
+        sh 'docker rm ecommerce_front || true'
+        sh 'docker run --name hotel_front -p 4001:80 -d ecommerce_front'
+    }
+    
+    stage('Clean out') {
+        sh 'docker image prune -f'
+    }
+}

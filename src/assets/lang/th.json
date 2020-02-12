@@ -1,0 +1,47 @@
+{
+    "page_user_list": "จัดการผู้ใช้งานระบบ",
+    "page_user_data": "ข้อมูลผู้ใช้งานระบบ",
+    "page_role_list": "จัดการกลุ่มผู้ใช้งานระบบ",
+    "page_role_data": "ข้อมูลกลุ่มผู้ใช้งานระบบ",
+    "page_category_list": "จัดการหมวดผลิตภัณฑ์",
+    "page_category_data": "ข้อมูลหมวดผลิตภัณฑ์",
+    "page_product_list": "จัดการผลิตภัณฑ์",
+    "page_product_data": "ข้อมูลผลิตภัณฑ์",
+
+    "tab_role_permission": "สิทธิ์การใช้งาน",
+    "tab_installment_cond": "เงื่อนไขการผ่อนชำระ",
+    "tab_installment_bank": "ธนาคาร",
+
+    "login": "ลอกอิน",
+    "search": "ค้นหา",
+    "reset": "ล้างการค้นหา",
+    "add": "เพิ่ม",
+    "delete": "ลบ",
+    "save": "บันทึก",
+    "back": "ย้อนกลับ",
+    "export": "ส่งออก",
+    "cancel": "ยกเลิก",
+    "import": "นำเข้า",
+    "choose_file": "เลือกไฟล์",
+
+    "row_number": "ลำดับ",
+
+    "username": "ชื่อผู้ใช้",
+    "full_name": "ชื่อ-นามสกุล",
+    "passwd": "รหัสผ่าน",
+    "password": "รหัสผ่าน",
+    "confirm_password": "ยืนยันรหัสผ่าน",
+    "role_id": "กลุ่มผู้ใช้",
+    "user_status": "สถานะ",
+
+    "role_name": "กลุ่มผู้ใช้",
+    "role_status": "สถานะ",
+    "menu": "ฟังก์ชันในระบบ",
+
+    "cat_name": "ชื่อหมวดผลิตภัณฑ์",
+    "cat_status": "สถานะ",
+
+    "prod_name": "ชื่อผลิตภัณฑ์",
+    "cat_id": "หมวดผลิตภัณฑ์",
+    "prod_status": "สถานะ"
+}

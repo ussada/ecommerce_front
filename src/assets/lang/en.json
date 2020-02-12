@@ -1,0 +1,45 @@
+{
+    "page_user_list": "User Management",
+    "page_user_data": "User Data",
+    "page_role_list": "Role Management",
+    "page_role_data": "Role Data",
+    "page_category_list": "Category Management",
+    "page_category_data": "Category Data",
+    "page_product_list": "Product Management",
+    "page_product_data": "Product Data",
+
+    "tab_role_permission": "Permissions",
+
+    "login": "Login",
+    "search": "Search",
+    "reset": "Reset",
+    "add": "Add",
+    "delete": "Delete",
+    "save": "Save",
+    "back": "Back",
+    "export": "Export",
+    "cancel": "Cancel",
+    "import": "Import",
+    "choose_file": "Choose File",
+
+    "row_number": "No.",
+
+    "username": "User ID",
+    "full_name": "Name",
+    "passwd": "Password",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "role_id": "Role",
+    "user_status": "Status",
+
+    "role_name": "Role Name",
+    "role_status": "Status",
+    "menu": "Group Menu",
+
+    "cat_name": "Category Name",
+    "cat_status": "Status",
+
+    "prod_name": "Product Name",
+    "cat_id": "Category",
+    "prod_status": "Status"
+}
