@@ -49,8 +49,8 @@ const AccountMenu = ({lang, account}) => {
             onClick: handleMenuClose,
         },
         items: [
-            <MenuItem key="profile" onClick={handleMenuClose}>Profile</MenuItem>,
-            <Divider key="div" />,
+            // <MenuItem key="profile" onClick={handleMenuClose}>Profile</MenuItem>,
+            // <Divider key="div" />,
             <MenuItem key="logout" onClick={account.logout}>Logout</MenuItem>
         ]
     };

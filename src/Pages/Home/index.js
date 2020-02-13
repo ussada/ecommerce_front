@@ -8,6 +8,7 @@ import {Divider} from '@material-ui/core';
 import {connect} from 'react-redux';
 import {getLang, getLangList} from '../../assets/lang';
 import {setLang, setValue} from '../../actions/config';
+import {revokeAuth} from '../../actions/auth';
 
 import dashboard from '../Dashboard';
 import user from '../User';
@@ -118,13 +119,11 @@ class Home extends Component {
     }
 
     logout = () => {
-        localStorage.removeItem('token');
-        this.props.dispatch(setValue({
-            auth: {
-                success: false
-            },
-            user: {}
-        }));
+        const {user} = this.props || {};
+        const user_id = user.id;
+        
+        if (user_id)
+            this.props.dispatch(revokeAuth(user_id));
     }
       
     render() {

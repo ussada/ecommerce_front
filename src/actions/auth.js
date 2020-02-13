@@ -159,3 +159,30 @@ export const apiAuth = (param) => {
         });
     }
 }
+
+export const revokeAuth = user_id => {
+    return dispatch => {
+        if (user_id) {
+            API.post('auth/logout', {user_id}).then(json => {
+                const {success, data, error} = json;
+                let res ={};
+
+                if (success) {
+                    res = {
+                        auth: {
+                            success: false,
+                            msg: data,
+                        },
+                        user: {},
+                    }
+                }
+
+                setToken('');
+                dispatch({
+                    type: `SET_CONFIG_VALUE`,
+                    param: res
+                });
+            });
+        }
+    }
+}
