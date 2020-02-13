@@ -16,7 +16,7 @@ node {
     stage('Create container') {
         sh 'docker stop ecommerce_front || true'
         sh 'docker rm ecommerce_front || true'
-        sh 'docker run --name ecommerce_front -p 4001:80 --network=ecommerce_db -d ecommerce_front'
+        sh 'docker run --name ecommerce_front -p 4001:80 -d ecommerce_front'
     }
     
     stage('Clean out') {
