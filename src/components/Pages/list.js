@@ -103,22 +103,6 @@ class PageList extends React.Component {
 
   rowClick = (row) => {       
     let id = row.id;
-    let param = {
-      con: {id}
-    }
-
-    // let detailSchema = this.schema('detail') || {};
-  
-    // let detailList = Object.keys(detailSchema)
-    // // console.log(detailList)
-    // detailList.map(name => {
-    //   param.include = {
-    //     ...param.include,
-    //     [name]: []
-    //   }
-    // })
-    // console.log(param)
-    // this.props.dispatch(getData(this.props.moduleName, param, 'edit'));
     
     return this.props.history.push({
       pathname: `./data/`,

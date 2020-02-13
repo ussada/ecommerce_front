@@ -57,6 +57,11 @@ function schema(e, name) {
                 component: 'button',
                 title: 'Delete',
                 onClick: e.delete
+            },
+            export: {
+                component: 'button',
+                title: 'Export',
+                onClick: e.export
             }
         },
         table: {

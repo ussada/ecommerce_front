@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import propTypes from 'prop-types';
-import {withRouter, Redirect} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Form from '../../components/Form';
 import {connect} from "react-redux";
-import {getData, addData, updateData, getDataBatch, setInitialData} from '../../actions/base';
+import {getData, addData, updateData, setInitialData} from '../../actions/base';
 import {validate, getFormData, cardExpiry} from '../../common/util';
 import {handleChange, setChangeFields, setChangeFieldsByParam, getListItems, getCurrentValue} from '../../common/actions';
 import Detail from './detail';
