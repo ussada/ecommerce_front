@@ -1,6 +1,6 @@
 node {
     stage('Source checkout') {
-        git credentialsId: 'ussada.a', url: 'https://github.com/ussada/e-commercefront.git'
+        git credentialsId: 'ussada.a', url: 'https://github.com/ussada/ecommerce_front.git'
     }
 
     stage('Load deploy environment') {

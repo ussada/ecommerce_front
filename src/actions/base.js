@@ -34,7 +34,7 @@ function apiGetData(moduleName, param = {}, mode) {
   return dispatch => {
     let apiRoute = getApiRoute(moduleName, 'get', mode);
     dispatch(fetchBegin(moduleName));
-    
+    console.log(param)
     API.get(`${apiRoute}/`, param).then(json => {
       dispatch({
         type: `FETCH_SUCCESS_${moduleName}`,

@@ -40,11 +40,13 @@ class PageList extends React.Component {
   
   search = (e, initialConditions = undefined) => {
     const condition = this.schema('condition');
+    const attr = this.schema('attributes') || {};
     const params = initialConditions ? initialConditions : this.state.changeFields ? this.state.changeFields : {};
     const {include, ...con} = getSearchCondition(condition, params);
     const param = {
-        con,
-        include: include || {}
+      attr,
+      con,
+      include: include || {}
     };
     
     this.props.dispatch(getData(this.props.moduleName, param));
@@ -104,8 +106,19 @@ class PageList extends React.Component {
     let param = {
       con: {id}
     }
-    
-    this.props.dispatch(getData(this.props.moduleName, param, 'edit'));
+
+    // let detailSchema = this.schema('detail') || {};
+  
+    // let detailList = Object.keys(detailSchema)
+    // // console.log(detailList)
+    // detailList.map(name => {
+    //   param.include = {
+    //     ...param.include,
+    //     [name]: []
+    //   }
+    // })
+    // console.log(param)
+    // this.props.dispatch(getData(this.props.moduleName, param, 'edit'));
     
     return this.props.history.push({
       pathname: `./data/`,

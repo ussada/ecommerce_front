@@ -78,8 +78,11 @@ function schema(e, name) {
                 onClick: e.rowClick,
                 rowNumber: false,
                 onRowToggle: e.handleRowToggle, // checkbox click
-                selectedRows: e.state.selectedRows  // pass selectedRow to Table component, use to set indeterminate
+                selectedRows: e.state.selectedRows,  // pass selectedRow to Table component, use to set indeterminate
             }
+        },
+        attributes: {
+            exclude: ['passwd']
         }
     };
 

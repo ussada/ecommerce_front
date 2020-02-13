@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import {withRouter, Redirect} from 'react-router-dom';
 import Form from '../../components/Form';
 import {connect} from "react-redux";
-import {addData, updateData, getDataBatch, setInitialData} from '../../actions/base';
+import {getData, addData, updateData, getDataBatch, setInitialData} from '../../actions/base';
 import {validate, getFormData, cardExpiry} from '../../common/util';
 import {handleChange, setChangeFields, setChangeFieldsByParam, getListItems, getCurrentValue} from '../../common/actions';
 import Detail from './detail';
@@ -149,7 +149,6 @@ class PageData extends Component {
     }
     
     back = () => {
-        // this.props.dispatch(setChangeFields(this.props.moduleName, {}));
         const {history} = this.props;
         const {param} = this.props.location;
         let backPage = param && param.backPage ? param.backPage : '';
@@ -161,23 +160,6 @@ class PageData extends Component {
     
     refForm = (e) => {
         return this.form = e;
-    }
-
-    getBatchItems = (id) => {
-        let detail = this.schema('detail');
-        
-        if (detail) {
-            Object.keys(detail).map(name => {
-                let fk = detail[name](this, 'fk');
-                let param = {
-                    con: {
-                        [fk]: id
-                    }
-                }
-
-                this.props.dispatch(getDataBatch(name, param));
-            });
-        }
     }
 
     clearBatchItems = () => {
@@ -204,6 +186,7 @@ class PageData extends Component {
 
     UNSAFE_componentWillMount() {
         const {param} = this.props.location;
+        
         if (param) {
             let mode = param.mode ? param.mode : 'add';
             let id = param.id ? param.id : 0;
@@ -213,21 +196,39 @@ class PageData extends Component {
                 const initialState = this.schema('initialState');
                 changeFields = initialState ? {...initialState} : {};
             }
-            else {
-                this.getBatchItems(id);
-            }
             
             this.setState({
                 mode, 
                 id,
                 changeFields
             });
+
+            // Get data
+            const attr = this.schema('attributes') || {};
+
+            let getParam = {
+                attr,
+                con: {
+                    id
+                }
+            }
+
+            let detail = this.schema('detail') || {};
+            let detailList = Object.keys(detail)
+            
+            detailList.map(name => {
+              getParam.include = {
+                ...getParam.include,
+                [name]: []
+              }
+            })
+            
+            this.props.dispatch(getData(this.props.moduleName, getParam));
         }
     }
 
     componentWillReceiveProps(nextProps) {
         const nextSelectedItems = nextProps.selectedItems;
-
         const afterFetch = this.schema('afterFetch');        
         this.setState({initialFields: nextSelectedItems[0]});
 
@@ -299,8 +300,8 @@ class PageData extends Component {
                             {
                                 typeof detail !== 'undefined' 
                                     ? Object.keys(detail).map(name => {
-                                        // const initialItems = initialFields && initialFields.hasOwnProperty(name) ? initialFields[name].slice() : [];
-                                        return <Detail key={name} moduleName={name} schema={detail[name]} masterId={this.state.id} /*initialItems={initialItems}*/ />
+                                        const initialItems = initialFields && initialFields.hasOwnProperty(name) ? initialFields[name].slice() : [];
+                                        return <Detail key={name} moduleName={name} schema={detail[name]} masterId={this.state.id} initialItems={initialItems} />
                                     })
                                     : ''
                             }

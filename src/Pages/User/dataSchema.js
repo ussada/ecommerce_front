@@ -27,7 +27,7 @@ function schema( e, name ) {
                 component: 'text',
                 type: 'password',
                 title: 'Password',
-                required: true,
+                required: mode === 'add',
                 visibled: mode === 'add',
             },
             confirm_password: {
@@ -66,6 +66,9 @@ function schema( e, name ) {
                 title: 'Back',
                 onClick: e.back
             }
+        },
+        attributes: {
+            exclude: ['passwd']
         }
     };
 
