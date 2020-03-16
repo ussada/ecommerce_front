@@ -13,6 +13,7 @@ import {auth} from '../../actions/auth';
 import {base64Decode} from '../../common/util';
 import Loading from '../../components/Loading';
 import {handleChange, setChangeFields} from '../../common/actions';
+import SocialAuthPanel, {GoogleLogin, FacebookLogin} from '../../components/Auth';
 
 const styles = theme => ({
     root: {
@@ -21,8 +22,19 @@ const styles = theme => ({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    content: {
+        [theme.breakpoints.down('xs')]: {
+            width: '90%'
+        },
+        [theme.breakpoints.only('sm')]: {
+            width: '50%'
+        },
+        [theme.breakpoints.up('md')]: {
+            width: '30%'
+        }
+    },
     card: {
-        width: '30%',
+        // width: '30%',
         marginTop: 20,
     },
     title: {
@@ -59,11 +71,19 @@ class Login extends React.Component {
 
     submit = (e) => {
         let param = this.state.changeFields;
-
+        
         if (param && param.username && param.password) {
             this.toggleLoading(true);
             this.props.dispatch(auth(param));
         }
+    }
+
+    responseGoogle = res => {
+        console.log(res);
+    }
+
+    responseFacebook = res => {
+        console.log(res);
     }
 
     reset = () => {
@@ -125,8 +145,18 @@ class Login extends React.Component {
         if (auth && auth.success)
             return <Redirect to="/" />
 
+        const customButton = props => ({
+            goobleLogin: {
+                component: 'button',
+                title: 'LOGIN WITH GOOGLE',
+                onClick: props.onClick,
+                disabled: props.disabled
+            }
+        })
+
         return (
             <div className={classes.root}>
+                <div className={classes.content}>
                 <Card className={classes.card}>
                     <Loading isLoading={this.state.loading}>
                         <CardContent>
@@ -151,6 +181,9 @@ class Login extends React.Component {
                         </CardContent>
                     </Loading>
                 </Card>
+
+                {/* <SocialAuthPanel responseGoogle={this.responseGoogle} responseFacebook={this.responseFacebook} /> */}
+                </div>
             </div>
         )
     }
