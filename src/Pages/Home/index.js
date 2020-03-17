@@ -49,15 +49,17 @@ class Home extends Component {
             this.setLanguage(nextLang);
         }
 
-        this.setState({toolbarTitle: this.getCurrentTitle(nextProps)});
+        this.setState({toolbarTitle: this.getCurrentTitle(nextProps)});    
     }
 
     UNSAFE_componentWillMount() {
         const {current} = this.props.lang;
         this.setLanguage(current);
 
-        // getListItems(this, {...getReference('menu'), itemField: 'menu'});
-        this.props.dispatch(getData('menu'));
+        const {auth} = this.props;
+
+        if (auth && auth.success)
+            this.props.dispatch(getData('menu'));   
     }
 
     getCurrentTitle = ({location: {pathname}}) => {
