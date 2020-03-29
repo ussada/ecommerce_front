@@ -1,173 +1,232 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import clsx from 'clsx';
-import {withStyles} from '@material-ui/core/styles';
-import {
-  Drawer,
-  CssBaseline,
-  AppBar,
-  List,
-  Typography,
-  Divider,
-  IconButton,
-  Toolbar,
-  Icon
-} from '@material-ui/core';
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MenuIcon from '@material-ui/icons/Menu';
+import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import withWidth from "@material-ui/core/withWidth";
+import Collapse from '@material-ui/core/Collapse';
+
 import AccountMenu from './accountMenu';
 
-const drawerWidth = 240;
-const headerHeight = 10;
+const useStyles = makeStyles(theme => {
+  const drawerOpenWidth = 240;
+  const drawerCloseWidth = theme.spacing(7) + 1;
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+  const drawerStyle = drawerWidth => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 20px',
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
-    fontWeight: 'bold',
-    height: headerHeight
-  },
-  content: {
-    flexGrow: 1,
-    // display: 'flex',
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-    // justifyContent: 'flex-start'
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0
-  },
-  grow: {
-    flexGrow: 1,
-  },
+  })
+
+  return {
+    root: {
+      display: 'flex',
+    },
+    drawer: {
+      [theme.breakpoints.up('sm')]: {
+        width: drawerOpenWidth,
+        flexShrink: 0,
+      },
+    },
+    drawerOpen: {
+      ...drawerStyle(drawerOpenWidth)
+    },
+    drawerClose: {
+      ...drawerStyle(drawerCloseWidth),
+      overflowX: 'hidden',
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9) + 1,
+      }
+    },
+    appBar: {
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${drawerOpenWidth}px)`,
+        marginLeft: drawerOpenWidth,
+      },
+    },
+    appBarOpen: {
+      ...drawerStyle(`calc(100% - ${drawerOpenWidth}px)`),
+    },
+    appBarClose: {
+      ...drawerStyle(`calc(100% - ${drawerCloseWidth}px)`),
+    },
+    hide: {
+        display: 'none',
+    },
+    menuButton: {
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
+    },
+    toolbar: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: theme.spacing(0, 1),
+      [theme.breakpoints.down('sm')]: {
+          ...theme.mixins.toolbar,
+      },
+    },
+    drawerPaper: {
+      width: drawerOpenWidth,
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+    },
+    contentShift: {
+      ...theme.mixins.toolbar,
+    },
+    grow: {
+      flexGrow: 1,
+    },
+  }
 });
 
-class NavigationDrawer extends React.Component {
+const applyToolTip = component => {
+  const label = component.props && component.props.label ? component.props.label : '';
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: true
-        }
-    }
-  
-    handleDrawer = open => {
-      this.setState({open});
-    }
+  return (
+    <Tooltip 
+        title={label}
+        placement="right"
+    >
+        {component}
+    </Tooltip>
+  )
+}
 
-    render() {
-        const {classes, drawerTitle, toolbarTitle, items = [], accountMenu} = this.props;
-        const {open} = this.state;
-        
-        return (
-        <div className={classes.root}>
-          <CssBaseline />
-            <AppBar
-              position="fixed"
-              className={clsx(classes.appBar, {
-                [classes.appBarShift]: open,
-              })}
-            >
-              <Toolbar>
-                <IconButton
-                color="inherit"
-                aria-label="Open drawer"
-                onClick={() => this.handleDrawer(true)}
-                edge="start"
-                className={clsx(classes.menuButton, open && classes.hide)}
-                >
-                  <Icon>menu</Icon>
-                </IconButton>
-                <Typography variant="h6" noWrap>{drawerTitle}</Typography>
+function NavigationDrawer(props) {
+  const {container, children, items = [], width, drawerTitle, accountMenu} = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-                <div className={classes.grow} />
-                <AccountMenu {...accountMenu} />
-              </Toolbar>
-            </AppBar>
-            <Drawer
-              className={classes.drawer}
-              variant="persistent"
-              anchor="left"
-              open={open}
-              classes={{
-                  paper: classes.drawerPaper,
-              }}
-            >
-              <div className={classes.drawerHeader}>
-                <img width="100%" height="42px"></img>
-                <IconButton onClick={() => this.handleDrawer(false)}>
-                  <Icon>arrow_back</Icon>
-                </IconButton>
-              </div>
-              <Divider />
-              {/* <div className={classes.drawerHeader}>
-                <Typography style={{fontWeight: 'bold', fontStyle: 'italic'}}>{drawerTitle}</Typography>
-              </div> */}
-              <Divider />
-              <List>
-                  {items.map(item => ({...item}))}
-              </List>
-            </Drawer>
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                {this.props.children}
-            </main>
-        </div>
-        );
-    }
+  const isSmallScreen = /xs|sm/.test(width);
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} >
+        <IconButton
+            button
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerToggle}
+            className={clsx(classes.menuButton, {
+                [classes.hide]: mobileOpen,
+            })}
+        >
+          <MenuIcon />
+        </IconButton>
+        <IconButton
+            button
+            onClick={handleDrawerToggle}
+            className={clsx(classes.menuButton, {
+                [classes.hide]: !mobileOpen,
+            })}
+        >
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </IconButton>
+      </div>
+      
+      <Divider />
+      <List>
+          {items.map(item => {
+              if (isSmallScreen && !mobileOpen)
+                return applyToolTip(item);
+              else
+                return item;
+          })}
+      </List>
+    </div>
+  );
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar 
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarOpen]: mobileOpen,
+          [classes.appBarClose]: isSmallScreen && !mobileOpen,
+        })}
+      >
+        <Toolbar>
+          <Typography variant="h6" noWrap>{drawerTitle}</Typography>
+          <div className={classes.grow} />
+          <AccountMenu {...accountMenu} />
+        </Toolbar>
+      </AppBar>
+      <nav className={classes.drawer} aria-label="nav-bar">
+        <Hidden smUp implementation="css">
+          <Drawer
+            container={container}
+            variant="permanent"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            className={clsx(classes.drawer, {
+                [classes.drawerOpen]: mobileOpen,
+                [classes.drawerClose]: !mobileOpen,
+            })}
+            classes={{
+                paper: clsx({
+                    [classes.drawerOpen]: mobileOpen,
+                    [classes.drawerClose]: !mobileOpen,
+                }),
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
+      
+      <main className={classes.content}>
+        <div className={classes.contentShift} />
+        {children}
+      </main>
+    </div>
+  );
 }
 
 NavigationDrawer.propTypes = {
-  classes: propTypes.any,
-  drawerTitle: propTypes.string,
-  toolbarTitle: propTypes.string,
-  items: propTypes.any,
-  accountMenu: propTypes.any,
-  children: propTypes.any
-}
+  container: PropTypes.any,
+  classes: PropTypes.any,
+  drawerTitle: PropTypes.string,
+  toolbarTitle: PropTypes.string,
+  items: PropTypes.any,
+  accountMenu: PropTypes.any,
+  children: PropTypes.any
+};
 
-export default withStyles(styles)(NavigationDrawer);
+export default withWidth()(NavigationDrawer);

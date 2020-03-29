@@ -33,7 +33,7 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "set PORT=4000&&set HTTPS=true&&react-scripts start",
+    "start": "set PORT=4000&&react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint src/**/*.js",
     "test": "mocha tools/testSetup.js \"src/**/*.spec.js\" --reporter progress",

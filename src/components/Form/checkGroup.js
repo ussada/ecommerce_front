@@ -24,7 +24,7 @@ const CheckboxGroup = ({schema}) => {
   const {className, label, items, required, disabled, initialValue, field, itemAsRow, ...otherProps} = schema;
   
   return (
-    <div className={className}>
+    <div className="grid-cell--12">
       <FormControl className={className} required={required} disabled={disabled} >
         <FormLabel className={classes.label} component="legend">{label}</FormLabel>
         <FormGroup >
@@ -46,8 +46,8 @@ const CheckboxGroup = ({schema}) => {
                   value={item.id}
                   control={
                     <>
-                    <Checkbox color="primary" {...otherProps} {...itemProps} className="" checked={checked} />
-                    { icon ? <Icon style={{marginRight: '5px'}}>{icon}</Icon> : '' }
+                      <Checkbox color="primary" {...otherProps} {...itemProps} className="" checked={checked} />
+                      { icon ? <Icon style={{marginRight: '5px'}}>{icon}</Icon> : '' }
                     </>
                   }
                   label={item.name}
